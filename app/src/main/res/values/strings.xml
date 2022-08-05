@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RCountries</string>
+    <string name="name">Name</string>
+    <string name="country_code">Country Code</string>
+    <string name="region">Region</string>
+    <string name="capital">Capital</string>
+</resources>
