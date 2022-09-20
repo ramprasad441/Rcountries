@@ -2,17 +2,20 @@ package com.ramprasad.rcountries.view
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ramprasad.rcountries.adapter.CountriesAdapter
 import com.ramprasad.rcountries.commons.ResponseState
 import com.ramprasad.rcountries.databinding.CountriesFragmentBinding
 import com.ramprasad.rcountries.viewmodel.CountriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Created by Ramprasad on 7/30/22.
@@ -23,6 +26,7 @@ class CountriesFragment : Fragment() {
     private val binding by lazy {
         CountriesFragmentBinding.inflate(layoutInflater)
     }
+    private var overallXScroll = false
 
     private val countriesAdapter by lazy {
         CountriesAdapter()
@@ -63,6 +67,31 @@ class CountriesFragment : Fragment() {
                     binding.countryProgress.visibility = View.GONE
                     binding.countryRV.visibility = View.VISIBLE
                     countriesAdapter.setNewCountries(state.countries)
+
+                    binding.countryRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                        override fun onScrolled(
+                            recyclerView: RecyclerView,
+                            horizontalResultPosition: Int,
+                            verticalResultPosition: Int
+                        ) {
+                            super.onScrolled(
+                                recyclerView,
+                                horizontalResultPosition,
+                                verticalResultPosition
+                            )
+                            Log.i("check", "overall->$overallXScroll")
+                            if (verticalResultPosition > 0) {
+                                binding.floatingButton.visibility = View.VISIBLE
+                                binding.floatingButton.setOnClickListener {
+                                    binding.countryRV.smoothScrollToPosition(0)
+                                }
+                            } else {
+                                if (binding.countryRV.canScrollVertically(-1))
+                                    binding.floatingButton.visibility = View.GONE
+                            }
+                        }
+                    })
+
                 }
 
             }
