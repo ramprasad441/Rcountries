@@ -12,5 +12,6 @@ data class Countries(
     @SerializedName("flag") var flag: String? = null,
     @SerializedName("language") var language: Language? = Language(),
     @SerializedName("name") var name: String? = null,
-    @SerializedName("region") var region: String? = null
+    @SerializedName("region") var region: String? = null,
+    var header: String? = null
 )

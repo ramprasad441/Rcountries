@@ -3,6 +3,7 @@ package com.ramprasad.rcountries.repository
 import com.ramprasad.rcountries.commons.FailureResponse
 import com.ramprasad.rcountries.commons.NullResponseMessage
 import com.ramprasad.rcountries.commons.ResponseState
+import com.ramprasad.rcountries.model.Countries
 import com.ramprasad.rcountries.network.RetrofitClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,8 +24,23 @@ class AllCountriesRepositoryImpl @Inject constructor(
             try {
                 val response = retrofitClient.getAllCountries()
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        emit(ResponseState.SUCCESS(it))
+                    response.body()?.let { it ->
+                        //val sortedList  = newDataSet.sortedBy { it.name }
+                        val mapOfCharAndData = it.groupBy {
+                            it.name?.get(0)?.uppercaseChar()
+                        }
+                        val headerList = mapOfCharAndData.keys.map {
+                            Countries(header = it.toString())
+                        }
+                        val resultList = headerList + it
+                        val sortedList = resultList.sortedBy {
+                            if (it.header != null) {
+                                it.header
+                            } else {
+                                it.name
+                            }
+                        }
+                        emit(ResponseState.SUCCESS(sortedList))
                     } ?: throw NullResponseMessage()
                 } else {
                     throw FailureResponse()
