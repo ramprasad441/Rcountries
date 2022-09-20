@@ -43,8 +43,11 @@ class CountriesFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = countriesAdapter
         }
+        getCountries()
+        return binding.root
+    }
 
-
+    private fun getCountries() {
         countriesViewModel.countries.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ResponseState.LOADING -> {
@@ -97,10 +100,7 @@ class CountriesFragment : Fragment() {
             }
         }
 
-
         countriesViewModel.getListOfAllCountries()
-
-        return binding.root
     }
 
     private fun showErrorMessage(message: String = "Working on the issues", retry: () -> Unit) {
