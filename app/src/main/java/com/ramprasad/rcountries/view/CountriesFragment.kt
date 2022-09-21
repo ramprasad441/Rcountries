@@ -2,10 +2,10 @@ package com.ramprasad.rcountries.view
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +26,6 @@ class CountriesFragment : Fragment() {
     private val binding by lazy {
         CountriesFragmentBinding.inflate(layoutInflater)
     }
-    private var overallXScroll = false
 
     private val countriesAdapter by lazy {
         CountriesAdapter()
@@ -44,6 +43,15 @@ class CountriesFragment : Fragment() {
             adapter = countriesAdapter
         }
         getCountries()
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            Toast.makeText(activity,"Toast called", Toast.LENGTH_SHORT).show()
+            getCountries()
+            Toast.makeText(activity,"Message", Toast.LENGTH_LONG).show()
+            binding.swipeRefresh.isRefreshing = false
+        }
+
         return binding.root
     }
 
@@ -82,14 +90,13 @@ class CountriesFragment : Fragment() {
                                 horizontalResultPosition,
                                 verticalResultPosition
                             )
-                            Log.i("check", "overall->$overallXScroll")
                             if (verticalResultPosition > 0) {
                                 binding.floatingButton.visibility = View.VISIBLE
                                 binding.floatingButton.setOnClickListener {
                                     binding.countryRV.smoothScrollToPosition(0)
                                 }
                             } else {
-                                if (binding.countryRV.canScrollVertically(-1))
+                                if (!binding.countryRV.canScrollVertically(-1))
                                     binding.floatingButton.visibility = View.GONE
                             }
                         }
