@@ -46,9 +46,9 @@ class CountriesFragment : Fragment() {
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
-            Toast.makeText(activity,"Toast called", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Toast called", Toast.LENGTH_SHORT).show()
             getCountries()
-            Toast.makeText(activity,"Message", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Message", Toast.LENGTH_LONG).show()
             binding.swipeRefresh.isRefreshing = false
         }
 
@@ -124,4 +124,10 @@ class CountriesFragment : Fragment() {
             .create()
             .show()
     }
+
+    // avoiding memory leaks
+    /*   override fun onDestroyView() {
+           super.onDestroyView()
+           binding = null
+       }*/
 }

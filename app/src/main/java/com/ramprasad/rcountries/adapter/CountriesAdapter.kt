@@ -58,7 +58,6 @@ class CountriesAdapter(private val countriesListData: MutableList<Countries> = m
                 )
             )
         }
-
     }
 
     override fun getItemCount(): Int = countriesListData.size
@@ -76,9 +75,6 @@ class CountriesAdapter(private val countriesListData: MutableList<Countries> = m
         holder.adapterPosition
         super.onViewRecycled(holder)
     }
-
-
-
 }
 
 class HeaderViewHolder(private val headerListItemBinding: CountriesHeaderListItemBinding) :
@@ -88,4 +84,3 @@ class HeaderViewHolder(private val headerListItemBinding: CountriesHeaderListIte
         headerListItemBinding.countryHeader.text = countries.header
     }
 }
-
