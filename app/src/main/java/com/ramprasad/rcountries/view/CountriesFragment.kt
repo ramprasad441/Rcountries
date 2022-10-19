@@ -16,7 +16,6 @@ import com.ramprasad.rcountries.databinding.CountriesFragmentBinding
 import com.ramprasad.rcountries.viewmodel.CountriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 /**
  * Created by Ramprasad on 7/30/22.
  */
@@ -34,7 +33,8 @@ class CountriesFragment : Fragment() {
     private val countriesViewModel: CountriesViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding.countryRV.apply {
@@ -96,14 +96,13 @@ class CountriesFragment : Fragment() {
                                     binding.countryRV.smoothScrollToPosition(0)
                                 }
                             } else {
-                                if (!binding.countryRV.canScrollVertically(-1))
+                                if (!binding.countryRV.canScrollVertically(-1)) {
                                     binding.floatingButton.visibility = View.GONE
+                                }
                             }
                         }
                     })
-
                 }
-
             }
         }
 

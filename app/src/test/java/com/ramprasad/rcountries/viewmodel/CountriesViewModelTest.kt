@@ -2,6 +2,8 @@ package com.ramprasad.rcountries.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import com.ramprasad.rcountries.commons.ResponseState
+import com.ramprasad.rcountries.repository.AllCountriesRepository
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -11,9 +13,10 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import com.ramprasad.rcountries.repository.AllCountriesRepository
-import com.ramprasad.rcountries.commons.ResponseState
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 /**
  * Created by Ramprasad on 7/31/22.

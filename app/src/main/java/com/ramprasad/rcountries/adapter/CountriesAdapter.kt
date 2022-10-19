@@ -13,7 +13,6 @@ import com.ramprasad.rcountries.model.Countries
 class CountriesAdapter(private val countriesListData: MutableList<Countries> = mutableListOf()) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
     override fun getItemViewType(position: Int): Int {
         return if (countriesListData[position].header != null) {
             0
@@ -36,12 +35,11 @@ class CountriesAdapter(private val countriesListData: MutableList<Countries> = m
             countriesListItemBinding.countryName.text = String.format(countries.name + ",")
             countriesListItemBinding.region.text = countries.region
             countriesListItemBinding.countryCapital.text = countries.capital
-            //Toast.makeText(this@CountriesViewHolder, countries.code.toString())
+            // Toast.makeText(this@CountriesViewHolder, countries.code.toString())
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         return when (viewType) {
             0 -> HeaderViewHolder(
                 CountriesHeaderListItemBinding.inflate(

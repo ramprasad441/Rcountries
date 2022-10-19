@@ -17,6 +17,7 @@ import retrofit2.Response
 /**
  * Created by Ramprasad on 8/5/22.
  */
+
 @RunWith(BlockJUnit4ClassRunner::class)
 internal class AllCountriesRepositoryImplTest {
 
@@ -32,9 +33,11 @@ internal class AllCountriesRepositoryImplTest {
 
     @Test
     fun testEmptyListData() = runTest {
-        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(Answer {
-            Response.success(emptyList<Countries>())
-        })
+        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(
+            Answer {
+                Response.success(emptyList<Countries>())
+            }
+        )
         val res: List<ResponseState> = repo.getAllCountries().toList()
 
         assert(true)
@@ -43,9 +46,11 @@ internal class AllCountriesRepositoryImplTest {
 
     @Test
     fun testTwoItemsListData() = runTest {
-        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(Answer {
-            Response.success(createCountry())
-        })
+        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(
+            Answer {
+                Response.success(createCountry())
+            }
+        )
         val res: List<ResponseState> = repo.getAllCountries().toList()
 
         assert(true)
@@ -54,9 +59,11 @@ internal class AllCountriesRepositoryImplTest {
 
     @Test
     fun testErrorData() = runTest {
-        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(Answer {
-            ResponseState.ERROR(Throwable())
-        })
+        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(
+            Answer {
+                ResponseState.ERROR(Throwable())
+            }
+        )
         val res: List<ResponseState> = repo.getAllCountries().toList()
 
         assert(true)
@@ -68,6 +75,5 @@ internal class AllCountriesRepositoryImplTest {
             add(Countries("El Aaiún", "EH", name = "Western Sahara"))
             add(Countries("Mata-Utu", "WF", name = "Wallis and Futuna"))
         }
-
     }
 }

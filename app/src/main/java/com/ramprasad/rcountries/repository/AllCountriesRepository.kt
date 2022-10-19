@@ -25,7 +25,7 @@ class AllCountriesRepositoryImpl @Inject constructor(
                 val response = retrofitClient.getAllCountries()
                 if (response.isSuccessful) {
                     response.body()?.let { it ->
-                        //val sortedList  = newDataSet.sortedBy { it.name }
+                        // val sortedList  = newDataSet.sortedBy { it.name }
                         val mapOfCharAndData = it.groupBy {
                             it.name?.get(0)?.uppercaseChar()
                         }
@@ -54,4 +54,3 @@ class AllCountriesRepositoryImpl @Inject constructor(
 interface AllCountriesRepository {
     fun getAllCountries(): Flow<ResponseState>
 }
-        

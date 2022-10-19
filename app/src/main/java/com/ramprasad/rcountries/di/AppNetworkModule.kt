@@ -1,8 +1,8 @@
 package com.ramprasad.rcountries.di
 
 import com.ramprasad.rcountries.network.RetrofitClient
-import com.ramprasad.rcountries.repository.AllCountriesRepositoryImpl
 import com.ramprasad.rcountries.repository.AllCountriesRepository
+import com.ramprasad.rcountries.repository.AllCountriesRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,14 +28,15 @@ class AppNetworkModule {
         "https://gist.githubusercontent.com/peymano-wmt/32dcb892b06648910ddd40406e37fdab/raw/db25946fd77c5873b0303b858e861ce724e0dcd0/countries.json"
 */
 
-
     @Provides
     @Singleton
     fun providesOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
@@ -58,5 +59,4 @@ class AppNetworkModule {
 
     @Provides
     fun providesIODispatcher(): CoroutineDispatcher = Dispatchers.IO
-
 }
