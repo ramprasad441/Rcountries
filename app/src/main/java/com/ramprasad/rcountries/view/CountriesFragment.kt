@@ -78,6 +78,7 @@ class CountriesFragment : Fragment() {
                     binding.countryProgress.visibility = View.GONE
                     binding.countryRV.visibility = View.VISIBLE
                     countriesAdapter.setNewCountries(state.countries)
+                    // Toast.makeText(this@CountriesFragment, state.countries, Toast.LENGTH_SHORT).show()
 
                     binding.countryRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                         override fun onScrolled(
@@ -90,6 +91,7 @@ class CountriesFragment : Fragment() {
                                 horizontalResultPosition,
                                 verticalResultPosition
                             )
+                            // Toast.makeText(activity, state.countries, Toast.LENGTH_SHORT).show()
                             if (verticalResultPosition > 0) {
                                 binding.floatingButton.visibility = View.VISIBLE
                                 binding.floatingButton.setOnClickListener {

@@ -3,6 +3,7 @@ package com.ramprasad.rcountries.repository
 import com.ramprasad.rcountries.commons.ResponseState
 import com.ramprasad.rcountries.model.Countries
 import com.ramprasad.rcountries.network.RetrofitClient
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -11,19 +12,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.BlockJUnit4ClassRunner
 import org.mockito.Mockito
-import org.mockito.stubbing.Answer
 import retrofit2.Response
 
 /**
  * Created by Ramprasad on 8/5/22.
  */
-
+@ExperimentalCoroutinesApi
 @RunWith(BlockJUnit4ClassRunner::class)
 internal class AllCountriesRepositoryImplTest {
 
-    lateinit var mockRetrofitClient: RetrofitClient
+    private lateinit var mockRetrofitClient: RetrofitClient
 
-    lateinit var repo: AllCountriesRepositoryImpl
+    private lateinit var repo: AllCountriesRepositoryImpl
 
     @Before
     fun before() {
@@ -33,11 +33,9 @@ internal class AllCountriesRepositoryImplTest {
 
     @Test
     fun testEmptyListData() = runTest {
-        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(
-            Answer {
-                Response.success(emptyList<Countries>())
-            }
-        )
+        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer {
+            Response.success(emptyList<Countries>())
+        }
         val res: List<ResponseState> = repo.getAllCountries().toList()
 
         assert(true)
@@ -46,11 +44,9 @@ internal class AllCountriesRepositoryImplTest {
 
     @Test
     fun testTwoItemsListData() = runTest {
-        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(
-            Answer {
-                Response.success(createCountry())
-            }
-        )
+        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer {
+            Response.success(createCountry())
+        }
         val res: List<ResponseState> = repo.getAllCountries().toList()
 
         assert(true)
@@ -59,11 +55,9 @@ internal class AllCountriesRepositoryImplTest {
 
     @Test
     fun testErrorData() = runTest {
-        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer(
-            Answer {
-                ResponseState.ERROR(Throwable())
-            }
-        )
+        Mockito.`when`(mockRetrofitClient.getAllCountries()).thenAnswer {
+            ResponseState.ERROR(Throwable())
+        }
         val res: List<ResponseState> = repo.getAllCountries().toList()
 
         assert(true)
